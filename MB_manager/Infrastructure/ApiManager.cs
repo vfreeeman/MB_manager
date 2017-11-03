@@ -29,9 +29,16 @@ namespace MB_manager.Infrastructure
         {
             if (account.is_auth)
             {
-                ApiResponse response;
-                response = account.api.ApiMethod($"https://api.vk.com/method/{ParseRequest(requset)}&access_token={account.token}");
-                return response.tokens.ToString();
+                try
+                {
+                    ApiResponse response;
+                    response = account.api.ApiMethod($"https://api.vk.com/method/{ParseRequest(requset)}&access_token={account.token}");
+                    return response.tokens.ToString();
+                }
+                catch
+                {
+                    return "сервер вернул http ошибку";
+                }
             }
             else
                 return "";

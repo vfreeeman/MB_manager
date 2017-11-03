@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using MB_manager.Infrastructure;
 using System.ComponentModel;
 
@@ -131,7 +118,7 @@ namespace MB_manager
 
         private void req_clear_Click(object sender, RoutedEventArgs e)
         {
-            req_history.Document.Blocks.Clear();
+            req_history.Text = "";
         }
 
 
@@ -156,6 +143,15 @@ namespace MB_manager
         }
 
 
+        private void script_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (ac_manager.account_displayed != null)
+                MessageBox.Show(api_manager.SendApi(ac_manager.account_displayed, script_text.Text));
+            else
+                MessageBox.Show("Ошибка, аккаунт не выбран");
+        }
+
+
 
 
         //events for request_sender_bw
@@ -175,7 +171,7 @@ namespace MB_manager
 
         private void request_sender_bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            req_history.AppendText(e.Result as string);
+            req_history.Text = e.Result as string;
         }
     }
 }
